@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRASA | The Printing Press for Text</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            gray: '#121212',
+                            border: '#222222',
+                            neonPurple: '#A855F7',
+                            neonCyan: '#22D3EE',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Geist Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.4); }
+        }
+        .glow-hover:hover {
+            animation: glow 2s infinite;
+        }
+        .token-noise {
+            transition: color 0.3s ease, background 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-gray-300 font-sans selection:bg-brand-neonPurple/30">
+
+    <!-- Nav -->
+    <nav class="max-w-7xl mx-auto px-6 py-8 flex justify-between items-center border-b border-brand-border">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-brand-neonPurple to-brand-neonCyan rounded flex items-center justify-center font-mono font-bold text-brand-black text-xl">P</div>
+            <span class="font-mono text-xl tracking-tighter text-white font-bold">PRASA</span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-mono text-sm uppercase tracking-widest">
+            <a href="#philosophy" class="hover:text-brand-neonCyan transition">Philosophy</a>
+            <a href="#simulator" class="hover:text-brand-neonCyan transition">Simulator</a>
+            <a href="#concepts" class="hover:text-brand-neonCyan transition">Concepts</a>
+            <a href="#setup" class="hover:text-brand-neonPurple transition text-white border-b border-brand-neonPurple pb-1">v1.0-alpha</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="philosophy" class="max-w-7xl mx-auto px-6 pt-24 pb-32">
+        <div class="max-w-3xl">
+            <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-tight mb-6">
+                The Printing Press <br/>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-neonPurple to-brand-neonCyan">for Text.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 leading-relaxed">
+                If traditional LLMs are <span class="text-white font-mono">Typewriters</span> (one character at a time), 
+                <span class="text-white font-mono">PRASA</span> is the <span class="text-white font-mono">Printing Press</span>. 
+                Massively parallel bidirectional text diffusion for the modern era.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#simulator" class="px-8 py-4 bg-white text-black font-bold rounded-sm text-center hover:bg-brand-neonCyan transition glow-hover">Try Diffusion</a>
+                <a href="#setup" class="px-8 py-4 border border-brand-border text-white font-mono text-sm rounded-sm text-center hover:bg-brand-gray transition">./prasa --help</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulator -->
+    <section id="simulator" class="bg-brand-gray border-y border-brand-border py-24">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl font-mono text-white mb-6 uppercase tracking-widest font-bold">Step-wise Convergence</h2>
+                <p class="text-gray-400 mb-8 leading-relaxed">
+                    Watch as PRASA denoises the entire context in parallel. Unlike autoregressive models, every token attends to every other token bidirectionally, allowing for complex infilling and non-linear text generation.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center space-x-3 text-sm font-mono">
+                        <span class="w-2 h-2 bg-brand-neonPurple rounded-full"></span>
+                        <span>Bidirectional Attention</span>
+                    </li>
+                    <li class="flex items-center space-x-3 text-sm font-mono">
+                        <span class="w-2 h-2 bg-brand-neonCyan rounded-full"></span>
+                        <span>Parallel Decoding (Up to 256 tokens)</span>
+                    </li>
+                    <li class="flex items-center space-x-3 text-sm font-mono">
+                        <span class="w-2 h-2 bg-white rounded-full"></span>
+                        <span>Iterative Refinement</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-brand-black p-8 rounded border border-brand-border font-mono text-sm relative group">
+                <div class="absolute -top-3 left-4 bg-brand-black px-2 text-[10px] text-gray-500 border border-brand-border">SIMULATOR_V01</div>
+                <div class="mb-6 space-y-2">
+                    <div class="text-gray-500">// Diffusion Input Buffer</div>
+                    <div class="text-white">
+                        <span class="text-brand-neonPurple">&lt;|prefix|&gt;</span> In a world where AI was a typewriter, <br/>
+                        <span class="text-brand-neonPurple">&lt;|fill|&gt;</span> <span id="diffusion-target" class="text-gray-600 bg-gray-900/50 px-1 italic">▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒</span> <br/>
+                        <span class="text-brand-neonPurple">&lt;|suffix|&gt;</span> became the ultimate printing press.
+                    </div>
+                </div>
+                <button id="diffuse-btn" class="w-full py-3 bg-brand-gray border border-brand-border text-brand-neonCyan hover:bg-brand-neonCyan hover:text-black transition uppercase text-xs tracking-widest font-bold">
+                    Run Diffusion Step
+                </button>
+                <div class="mt-4 flex justify-between text-[10px] text-gray-600 uppercase">
+                    <span>Steps: <span id="step-count">0</span> / 10</span>
+                    <span>Confidence: <span id="confidence">0%</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Concepts -->
+    <section id="concepts" class="max-w-7xl mx-auto px-6 py-24">
+        <h2 class="text-4xl font-bold text-white mb-16 text-center">Core Architecture</h2>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div class="p-8 border border-brand-border bg-brand-gray/30 hover:border-brand-neonPurple/50 transition">
+                <div class="text-brand-neonPurple mb-4 font-mono text-xl">01</div>
+                <h3 class="text-lg font-bold text-white mb-2">Parallel Decoding</h3>
+                <p class="text-sm text-gray-400">Generate up to 256 tokens in a single forward pass. PRASA breaks the serial bottleneck of modern LLMs.</p>
+            </div>
+            <div class="p-8 border border-brand-border bg-brand-gray/30 hover:border-brand-neonCyan/50 transition">
+                <div class="text-brand-neonCyan mb-4 font-mono text-xl">02</div>
+                <h3 class="text-lg font-bold text-white mb-2">Bidirectional Tokens</h3>
+                <p class="text-sm text-gray-400">Special tokens <span class="text-white italic">&lt;|prefix|&gt;</span> and <span class="text-white italic">&lt;|suffix|&gt;</span> allow for context-aware infilling that is natively cohesive.</p>
+            </div>
+            <div class="p-8 border border-brand-border bg-brand-gray/30 hover:border-white/20 transition">
+                <div class="text-white mb-4 font-mono text-xl">03</div>
+                <h3 class="text-lg font-bold text-white mb-2">Diffusion Editor</h3>
+                <p class="text-sm text-gray-400">Not just a generator, but an editor. Iteratively refine segments of text without affecting the overall structure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup -->
+    <section id="setup" class="max-w-7xl mx-auto px-6 py-24 border-t border-brand-border">
+        <div class="bg-brand-gray p-12 border border-brand-border">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl font-bold text-white mb-6">Running PRASA Local</h2>
+                <p class="text-gray-400 mb-8 font-mono text-sm leading-relaxed">
+                    PRASA is built for the local hacker. No cloud, no latency, full control.
+                </p>
+                <div class="space-y-4">
+                    <div class="bg-brand-black p-4 rounded-sm border border-brand-border relative">
+                        <div class="text-[10px] absolute top-1 right-2 text-gray-700">MAC / LINUX</div>
+                        <code class="text-brand-neonCyan text-sm font-mono">git clone https://github.com/Shandelier/PRASA.git</code>
+                    </div>
+                    <div class="bg-brand-black p-4 rounded-sm border border-brand-border">
+                        <code class="text-brand-neonPurple text-sm font-mono">./prasa start --device auto</code>
+                    </div>
+                </div>
+                <p class="mt-8 text-xs text-gray-500 italic font-mono uppercase tracking-widest">
+                    Reference: Bidirectional text diffusion requires Apple Silicon or NVIDIA GPU (8GB+ VRAM) for optimal performance.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-6 py-12 border-t border-brand-border flex flex-col md:row justify-between items-center text-xs text-gray-600 font-mono">
+        <p>© 2026 SHANDELIER / PRASA - BUILT BY HAND</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" class="hover:text-white">TWITTER</a>
+            <a href="https://github.com/Shandelier/PRASA" class="hover:text-white">GITHUB</a>
+            <a href="#" class="hover:text-white">DOCS</a>
+        </div>
+    </footer>
+
+    <script>
+        const target = document.getElementById('diffusion-target');
+        const btn = document.getElementById('diffuse-btn');
+        const stepSpan = document.getElementById('step-count');
+        const confidenceSpan = document.getElementById('confidence');
+        
+        const finalSentence = "PRASA'S bidirectional editor";
+        const noiseChars = "▒░▓█";
+        let step = 0;
+        let isAnimating = false;
+
+        function runStep() {
+            if (step >= 10 || isAnimating) return;
+            isAnimating = true;
+            step++;
+            
+            const ratio = step / 10;
+            let currentStr = "";
+            
+            for (let i = 0; i < finalSentence.length; i++) {
+                if (Math.random() < ratio) {
+                    currentStr += `<span class="text-brand-neonCyan transition-all duration-500">${finalSentence[i]}</span>`;
+                } else {
+                    currentStr += `<span class="text-gray-700">${noiseChars[Math.floor(Math.random() * noiseChars.length)]}</span>`;
+                }
+            }
+            
+            target.innerHTML = currentStr;
+            stepSpan.innerText = step;
+            confidenceSpan.innerText = Math.round(ratio * 100) + "%";
+            
+            if (step === 10) {
+                target.classList.remove('text-gray-600', 'italic');
+                target.classList.add('text-white', 'font-bold');
+                btn.innerText = "Diffusion Complete";
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+            
+            setTimeout(() => { isAnimating = false; }, 300);
+        }
+
+        btn.addEventListener('click', runStep);
+
+        // Auto-loop trigger for first time
+        setTimeout(() => {
+            if (step === 0) runStep();
+        }, 1500);
+    </script>
+</body>
+</html>
